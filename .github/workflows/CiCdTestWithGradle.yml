@@ -41,6 +41,5 @@ jobs:
 
       - name: Docker build
         run: |
-        docker build -t spring-cicd-alpine .
-        docker tag spring-cicd-alpine as9587/spring-cicd-alpine:${GITHUB_SHA::7} .
-        docker push as9587/spring-cicd-alpine:${GITHUB_SHA::7}
+          docker build -t as9587/spring-cicd-alpine:${GITHUB_SHA::7} .
+          docker push as9587/spring-cicd-alpine:${GITHUB_SHA::7}
