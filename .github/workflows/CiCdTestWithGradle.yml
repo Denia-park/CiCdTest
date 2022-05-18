@@ -9,9 +9,7 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ cicdtest ]
-  pull_request:
-    branches: [ cicdtest ]
+    branches: [ master ]
 
 permissions:
   contents: read
@@ -37,3 +35,6 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
+
+      - name: Docker build
+        run: docker build -t spring-cicd .
