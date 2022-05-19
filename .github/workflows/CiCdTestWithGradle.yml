@@ -27,6 +27,26 @@ jobs:
           java-version: '8'
           distribution: 'zulu'
 
+      - name: make application.properties
+        run: |
+          echo "pwd & ls -a ."
+          pwd
+          ls -a .
+          
+          echo "mkdir & touch"
+          mkdir -p ./src/main/resources
+          cd ./src/main/resources
+          touch ./application.properties
+          pwd
+          ls -a .
+
+          echo "copy properties"
+          echo $PROPERTIES >> ./application.properties
+          cat application.properties
+        shell: bash
+        env:
+          PROPERTIES: ${{ secrets.APPLICATION_PROPERTIES }}
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
