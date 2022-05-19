@@ -59,7 +59,7 @@ jobs:
             echo $DOCKER_ID
             echo $DOCKER_ID/spring-cicd:${GITHUB_SHA::7}
             echo docker pull ${DOCKER_ID::6}/spring-cicd:${GITHUB_SHA::7}
-#            docker pull ${DOCKER_ID::6}/spring-cicd:${GITHUB_SHA::7}
+            docker pull ${DOCKER_ID::6}/spring-cicd:${GITHUB_SHA::7}
 #            docker stop spring
 #            docker run -d --rm --name spring -p 80:8081 ${DOCKER_ID::6}/spring-cicd:${GITHUB_SHA::7}
 
