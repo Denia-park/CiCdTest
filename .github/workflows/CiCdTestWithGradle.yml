@@ -29,20 +29,14 @@ jobs:
 
       - name: make application.properties
         run: |
-          echo "pwd & ls -a ."
-          pwd
-          ls -a .
-          
-          echo "mkdir & touch"
+          echo "!! Mkdir & Touch"
           mkdir -p ./src/main/resources
           cd ./src/main/resources
           touch ./application.properties
-          pwd
-          ls -a .
 
-          echo "copy properties"
+          echo "!! Copy properties"
           echo $PROPERTIES >> ./application.properties
-          cat application.properties
+
         shell: bash
         env:
           PROPERTIES: ${{ secrets.APPLICATION_PROPERTIES }}
