@@ -13,6 +13,7 @@ on:
 
 env:
   DOCKER_IMG_FULL_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMG_NAME }}
+  TAGTAG: ${GITHUB_SHA::7}
 
 jobs:
   build:
@@ -21,7 +22,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - run: echo $DOCKER_IMG_FULL_NAME_WITH_TAG:${GITHUB_SHA::7}
+      - run: echo $DOCKER_IMG_FULL_NAME:${GITHUB_SHA::7}
+      - run: echo "tag __ $TAGTAG"
 
 #      - name: Set up Zulu OpenJDK 8
 #        uses: actions/setup-java@v3
