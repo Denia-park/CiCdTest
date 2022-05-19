@@ -11,12 +11,12 @@ on:
   push:
     branches: [ master ]
 
+env:
+  DOCKER_IMG_FULL_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMG_NAME }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      DOCKER_IMG_FULL_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMG_NAME }}
-
 
     steps:
       - uses: actions/checkout@v3
