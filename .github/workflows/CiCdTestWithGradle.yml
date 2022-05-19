@@ -47,7 +47,7 @@ jobs:
       - name: Deploy
         uses: appleboy/ssh-action@master
         env:
-          DOCKER_ID: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_ID: ${{ secrets.DOCKERHUB_USERNAME }} 
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
