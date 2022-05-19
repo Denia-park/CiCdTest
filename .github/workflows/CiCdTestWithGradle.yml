@@ -36,7 +36,7 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: as9587
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
 #      - name: Docker build
@@ -47,7 +47,7 @@ jobs:
       - name: Deploy
         uses: appleboy/ssh-action@master
         env:
-          DOCKER_ID: "as9587"
+          DOCKER_ID: ${{ secrets.DOCKERHUB_USERNAME }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
@@ -57,8 +57,8 @@ jobs:
           script: |
             echo Hello world
             echo $DOCKER_ID
-            echo $DOCKER_ID/spring-cicd:${GITHUB_SHA::7}
-            docker pull $DOCKER_ID/spring-cicd:a5b6e08
+            echo $DOCKER_ID/spring-cicd-alpine:a5b6e08
+            docker pull $DOCKER_ID/spring-cicd-alpine:a5b6e08
 #            docker pull ${DOCKER_ID::6}/spring-cicd:${GITHUB_SHA::7}
 #            docker stop spring
 #            docker run -d --rm --name spring -p 80:8081 ${DOCKER_ID::6}/spring-cicd:${GITHUB_SHA::7}
