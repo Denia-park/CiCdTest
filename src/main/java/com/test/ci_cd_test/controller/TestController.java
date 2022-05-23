@@ -17,7 +17,7 @@ public class TestController {
     @GetMapping("/")
     public String test(){
 //        String imgUrl = amazonS3.getUrl(bucket, "123456").toString();
-        return "Hello, Test -- Finish  " + OPENVIDU_URL + "      ";
+        return "Hello, Test -- Finish  " + OPENVIDU_URL + "  asdasd    ";
 //                + imgUrl;
     }
 }
