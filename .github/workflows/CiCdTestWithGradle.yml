@@ -27,39 +27,26 @@ jobs:
           java-version: '8'
           distribution: 'zulu'
 
-      - name: make application.yml
+      - name: make application.properties
         run: |
           echo "!! Mkdir & Touch"
           mkdir -p ./src/main/resources
           cd ./src/main/resources
-          touch ./application.yml
+          touch ./application.properties
 
-          echo "!! Copy yml"
-          echo $PROPERTIES >> ./application.yml
-          cat application.yml
+          echo "!! Copy properties"
+          echo $PROPERTIES >> ./application.properties
+          cat application.properties
 
         shell: bash
         env:
-          PROPERTIES: "cloud:
-                        aws:
-                          credentials:
-                            secret-key: HSIrQneR9czMLnFgUr1nu/x2WmFOfWbdvJiUpAG9
-                            access-key: AKIARVCCB2KYRTHFLDE5
-                          s3:
-                            bucket: dearfileuploadbucket
-                          region:
-                            static: ap-northeast-2
-                          stack:
-                            auto: 'false'
-                      test:
-                        url: ttttteeeeesssstttt"
-#          PROPERTIES: ${{ secrets.APPLICATION_PROPERTIES }}
+          PROPERTIES: ${{ secrets.APPLICATION_PROPERTIES }}
 
       - name: Read PROPERTIES
         id: package
         uses: juliangruber/read-file-action@v1
         with:
-          path: ./src/main/resources/application.yml
+          path: ./src/main/resources/application.properties
       - name: Echo PROPERTIES
         run: echo "${{ steps.package.outputs.content }}"
 
