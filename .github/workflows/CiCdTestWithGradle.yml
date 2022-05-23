@@ -36,6 +36,7 @@ jobs:
 
           echo "!! Copy properties"
           echo $PROPERTIES >> ./application.properties
+          cat application.properties
 
         shell: bash
         env:
