@@ -42,6 +42,14 @@ jobs:
         env:
           PROPERTIES: ${{ secrets.APPLICATION_PROPERTIES }}
 
+      - name: Read PROPERTIES
+        id: package
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./src/main/resources/application.properties
+      - name: Echo PROPERTIES
+        run: echo "${{ steps.package.outputs.content }}"
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
