@@ -42,30 +42,6 @@ jobs:
         env:
           PROPERTIES: ${{ secrets.APPLICATION_PROPERTIES }}
 
-      - name: Read PROPERTIES
-        id: package
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./src/main/resources/application.properties
-      - name: Echo PROPERTIES
-        run: echo "${{ steps.package.outputs.content }}"
-
-      - name: make application.properties
-        run: |
-          echo "!! Mkdir & Touch"
-          mkdir -p ./src/main/resources
-          cd ./src/main/resources
-          rm ./application.properties
-          touch ./application.properties
-
-          echo "!! Copy properties"
-          echo $PROPERTIES >> ./application.properties
-          cat application.properties
-
-        shell: bash
-        env:
-          PROPERTIES: ${{ secrets.APPLICATION_PROPERTIES }}
-
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
