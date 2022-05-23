@@ -40,7 +40,13 @@ jobs:
 
         shell: bash
         env:
-          PROPERTIES: ${{ secrets.APPLICATION_PROPERTIES }}
+          PROPERTIES: "cloud.aws.credentials.access-key=AKIASDQASDASDASDASDD
+                       cloud.aws.credentials.secret-key=DASDDASDDAMASDASDSADASDASDASDSAJiUpAG9
+                       cloud.aws.s3.bucket=ASDASDASDASD
+                       cloud.aws.region.static=ap-northeast-2
+                       cloud.aws.stack.auto=false
+                       test.url=ttttteeeeesssstttt"
+#          PROPERTIES: ${{ secrets.APPLICATION_PROPERTIES }}
 
       - name: Read PROPERTIES
         id: package
