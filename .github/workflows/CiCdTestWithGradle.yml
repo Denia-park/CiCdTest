@@ -35,7 +35,7 @@ jobs:
           touch ./application.properties
 
           echo "!! Copy properties"
-          echo "${{ secrets.APPLICATION_PROPERTIES }}" >> ./application.properties
+          echo -e "${{ secrets.APPLICATION_PROPERTIES }}" >> ./application.properties
           cat application.properties
         shell: bash
 
