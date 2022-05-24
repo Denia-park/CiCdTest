@@ -35,13 +35,10 @@ jobs:
           touch ./application.properties
 
           echo "!! Copy properties"
-          echo -e $PROPERTIES >> ./application.properties
-          echo test.url=${{ secrets.TEST_URL }} >> ./application.properties
+          echo "${{ secrets.APPLICATION_PROPERTIES }}" >> ./application.properties
           cat application.properties
-
         shell: bash
-        env:
-          PROPERTIES: ${{ secrets.APPLICATION_PROPERTIES }}
+
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
