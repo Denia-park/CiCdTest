@@ -36,6 +36,7 @@ jobs:
 
           echo "!! Copy properties"
           echo -e $PROPERTIES >> ./application.properties
+          echo test.url=${{ secrets.TEST_URL }} >> ./application.properties
           cat application.properties
 
         shell: bash
