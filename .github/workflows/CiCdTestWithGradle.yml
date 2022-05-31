@@ -81,6 +81,10 @@ jobs:
 
             yes | docker image prune -a
             docker pull $DOCKER_IMG_FULL_NAME:${GITHUB_SHA::7}
+            
+            sudo ./start.sh
+            sudo ./health.sh
+            sudo ./stop.sh
 
 #            chmod +x profile.sh
 
