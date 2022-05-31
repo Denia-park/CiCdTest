@@ -36,8 +36,9 @@ out/
 ### VS Code ###
 .vscode/
 
-application.properties
+application-test.properties
 application.yml
 TestDataRunner.java
 
-src/main/resources/
+src/main/resources/static
+src/main/resources/templates
