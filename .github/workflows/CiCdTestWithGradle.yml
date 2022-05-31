@@ -27,18 +27,23 @@ jobs:
           java-version: '8'
           distribution: 'zulu'
 
-      - name: make application.properties
+      - name: Edit application.properties
         run: |
-          echo "!! Mkdir & Touch"
+          echo ">> Enter directory"
           mkdir -p ./src/main/resources
           cd ./src/main/resources
-          touch ./application.properties
 
-          echo "!! Copy properties"
-          echo -e "${{ secrets.APPLICATION_PROPERTIES }}" >> ./application.properties
-          cat application.properties
+          echo ">> Edit local1 properties"
+          echo -e "${{ secrets.AWS_S3_ACCESS_KEY }}" >> ./application-local1.properties
+          echo -e "${{ secrets.AWS_S3_BUCKET_KEY }}" >> ./application-local1.properties
+          echo -e "${{ secrets.AWS_S3_SECRET_KEY }}" >> ./application-local1.properties
+          
+          echo ">> Edit callo2 properties"
+          echo -e "${{ secrets.AWS_S3_ACCESS_KEY }}" >> ./application-callo2.properties
+          echo -e "${{ secrets.AWS_S3_BUCKET_KEY }}" >> ./application-callo2.properties
+          echo -e "${{ secrets.AWS_S3_SECRET_KEY }}" >> ./application-callo2.properties
+
         shell: bash
-
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -71,7 +76,7 @@ jobs:
             yes | docker image prune -a
             docker pull $DOCKER_IMG_FULL_NAME:${GITHUB_SHA::7}
             docker stop spring
-            docker run -d --rm --name spring -p 80:8081 $DOCKER_IMG_FULL_NAME:${GITHUB_SHA::7}
+            docker run -d --rm --name spring -e "active=local1" -p 443:8081 $DOCKER_IMG_FULL_NAME:${GITHUB_SHA::7}
 
 
 
