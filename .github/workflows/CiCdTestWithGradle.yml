@@ -27,26 +27,26 @@ jobs:
 #          java-version: '8'
 #          distribution: 'zulu'
 
-      - name: Edit application.properties
-        run: |
-          echo ">> Enter directory"
-          mkdir -p ./src/main/resources
-          cd ./src/main/resources
+#      - name: Edit application.properties
+#        run: |
+#          echo ">> Enter directory"
+#          mkdir -p ./src/main/resources
+#          cd ./src/main/resources
+#
+#          echo ">> Edit local1 properties"
+#          echo -e "${{ secrets.AWS_S3_ACCESS_KEY }}" >> ./application-local1.properties
+#          echo -e "${{ secrets.AWS_S3_BUCKET_KEY }}" >> ./application-local1.properties
+#          echo -e "${{ secrets.AWS_S3_SECRET_KEY }}" >> ./application-local1.properties
+#
+#          echo ">> Edit callo2 properties"
+#          echo -e "${{ secrets.AWS_S3_ACCESS_KEY }}" >> ./application-callo2.properties
+#          echo -e "${{ secrets.AWS_S3_BUCKET_KEY }}" >> ./application-callo2.properties
+#          echo -e "${{ secrets.AWS_S3_SECRET_KEY }}" >> ./application-callo2.properties
+#
+#        shell: bash
 
-          echo ">> Edit local1 properties"
-          echo -e "${{ secrets.AWS_S3_ACCESS_KEY }}" >> ./application-local1.properties
-          echo -e "${{ secrets.AWS_S3_BUCKET_KEY }}" >> ./application-local1.properties
-          echo -e "${{ secrets.AWS_S3_SECRET_KEY }}" >> ./application-local1.properties
-          
-          echo ">> Edit callo2 properties"
-          echo -e "${{ secrets.AWS_S3_ACCESS_KEY }}" >> ./application-callo2.properties
-          echo -e "${{ secrets.AWS_S3_BUCKET_KEY }}" >> ./application-callo2.properties
-          echo -e "${{ secrets.AWS_S3_SECRET_KEY }}" >> ./application-callo2.properties
-
-        shell: bash
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+#      - name: Grant execute permission for gradlew
+#        run: chmod +x gradlew
 
 #      - name: Build with Gradle
 #        uses: gradle/gradle-build-action@v2
@@ -64,7 +64,7 @@ jobs:
 #          docker build -t $DOCKER_IMG_FULL_NAME:${GITHUB_SHA::7} .
 #          docker push $DOCKER_IMG_FULL_NAME:${GITHUB_SHA::7}
 
-      - name: Docker Deploy
+      - name: Make Script file and Docker image Deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -75,8 +75,38 @@ jobs:
           script: |
             pwd
             echo -e \
-            "pwd
-            ls -a" \
+            "#!/usr/bin/env bash \
+            \
+            function find_idle_profile(){\
+              RESPONSE_CODE=$(sudo curl -s -o /dev/null -w "%{http_code}" http://3.36.209.141/)\
+            \
+              if [ ${RESPONSE_CODE} -ge 400 ] # 400 보다 크면 (즉, 40x/50x 에러 모두 포함)\
+              then\
+                  CURRENT_PROFILE=real2\
+              else\
+                  CURRENT_PROFILE=$(sudo curl -s http://3.36.209.141/)\
+              fi\
+            \
+              if [ ${CURRENT_PROFILE} == real1 ]\
+              then\
+                IDLE_PROFILE=real2\
+              else\
+                IDLE_PROFILE=real1\
+              fi\
+            \
+              echo "${IDLE_PROFILE}"\
+            }\
+            # 쉬고 있는 profile의 port 찾기\
+            function find_idle_port(){\
+              IDLE_PROFILE=$(find_idle_profile)\
+            \
+              if [ ${IDLE_PROFILE} == real1 ]\
+              then\
+                echo "8081"\
+              else\
+              echo "8082"\
+              fi\
+            }" \
             > profile.sh
             chmod +x profile.sh
 
