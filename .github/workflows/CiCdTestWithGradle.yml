@@ -77,8 +77,8 @@ jobs:
             echo -e \
             "#!/bin/bash
             
-            DOCKER_IMG_FULL_NAME = $DOCKER_IMG_FULL_NAME
-            GITHUB_SHA = $GITHUB_SHA" \
+            DOCKER_IMG_FULL_NAME = $$DOCKER_IMG_FULL_NAME
+            GITHUB_SHA = $$GITHUB_SHA" \
             > env.sh
             
 #            function find_idle_profile(){
