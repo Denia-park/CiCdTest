@@ -86,10 +86,5 @@ jobs:
             sudo ./health.sh
             sudo ./stop.sh
 
-#            chmod +x profile.sh
-
-#            docker stop spring
-#            docker run -d --rm --name spring -e "active=real1" -p 8081:8081 $DOCKER_IMG_FULL_NAME:${GITHUB_SHA::7}
-
 
 
