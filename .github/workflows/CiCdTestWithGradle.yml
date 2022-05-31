@@ -77,20 +77,7 @@ jobs:
             echo -e \
             "#!/bin/bash \n
             function find_idle_profile(){
-              RESPONSE_CODE=$(sudo curl -s -o /dev/null -w "%{http_code}" http://3.36.209.141/)
-                if [ ${RESPONSE_CODE} -ge 400 ] 
-              then
-                  CURRENT_PROFILE=real2
-              else
-                  CURRENT_PROFILE=$(sudo curl -s http://3.36.209.141/)
-              fi
-                if [ ${CURRENT_PROFILE} == real1 ]
-              then
-                IDLE_PROFILE=real2
-              else
-                IDLE_PROFILE=real1
-              fi
-                echo "${IDLE_PROFILE}"
+            
             }
             pwd
             ls -al" \
