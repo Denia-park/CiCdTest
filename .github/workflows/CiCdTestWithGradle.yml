@@ -27,26 +27,26 @@ jobs:
 #          java-version: '8'
 #          distribution: 'zulu'
 
-      - name: Edit application.properties
-        run: |
-          echo ">> Enter directory"
-          mkdir -p ./src/main/resources
-          cd ./src/main/resources
+#      - name: Edit application.properties
+#        run: |
+#          echo ">> Enter directory"
+#          mkdir -p ./src/main/resources
+#          cd ./src/main/resources
+#
+#          echo ">> Edit local1 properties"
+#          echo -e "${{ secrets.AWS_S3_ACCESS_KEY }}" >> ./application-local1.properties
+#          echo -e "${{ secrets.AWS_S3_BUCKET_KEY }}" >> ./application-local1.properties
+#          echo -e "${{ secrets.AWS_S3_SECRET_KEY }}" >> ./application-local1.properties
+#
+#          echo ">> Edit callo2 properties"
+#          echo -e "${{ secrets.AWS_S3_ACCESS_KEY }}" >> ./application-callo2.properties
+#          echo -e "${{ secrets.AWS_S3_BUCKET_KEY }}" >> ./application-callo2.properties
+#          echo -e "${{ secrets.AWS_S3_SECRET_KEY }}" >> ./application-callo2.properties
+#
+#        shell: bash
 
-          echo ">> Edit local1 properties"
-          echo -e "${{ secrets.AWS_S3_ACCESS_KEY }}" >> ./application-local1.properties
-          echo -e "${{ secrets.AWS_S3_BUCKET_KEY }}" >> ./application-local1.properties
-          echo -e "${{ secrets.AWS_S3_SECRET_KEY }}" >> ./application-local1.properties
-          
-          echo ">> Edit callo2 properties"
-          echo -e "${{ secrets.AWS_S3_ACCESS_KEY }}" >> ./application-callo2.properties
-          echo -e "${{ secrets.AWS_S3_BUCKET_KEY }}" >> ./application-callo2.properties
-          echo -e "${{ secrets.AWS_S3_SECRET_KEY }}" >> ./application-callo2.properties
-
-        shell: bash
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+#      - name: Grant execute permission for gradlew
+#        run: chmod +x gradlew
 
 #      - name: Build with Gradle
 #        uses: gradle/gradle-build-action@v2
@@ -64,7 +64,7 @@ jobs:
 #          docker build -t $DOCKER_IMG_FULL_NAME:${GITHUB_SHA::7} .
 #          docker push $DOCKER_IMG_FULL_NAME:${GITHUB_SHA::7}
 
-      - name: Docker Deploy
+      - name: Make Script file and Docker image Deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
