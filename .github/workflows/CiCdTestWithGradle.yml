@@ -33,15 +33,8 @@ jobs:
           mkdir -p ./src/main/resources
           cd ./src/main/resources
 
-          echo ">> Edit local1 properties"
-          echo -e "${{ secrets.AWS_S3_ACCESS_KEY }}" >> ./application-local1.properties
-          echo -e "${{ secrets.AWS_S3_BUCKET_KEY }}" >> ./application-local1.properties
-          echo -e "${{ secrets.AWS_S3_SECRET_KEY }}" >> ./application-local1.properties
-
-          echo ">> Edit callo2 properties"
-          echo -e "${{ secrets.AWS_S3_ACCESS_KEY }}" >> ./application-callo2.properties
-          echo -e "${{ secrets.AWS_S3_BUCKET_KEY }}" >> ./application-callo2.properties
-          echo -e "${{ secrets.AWS_S3_SECRET_KEY }}" >> ./application-callo2.properties
+          echo ">> make properties"
+          echo -e ${{ secrets.APPLICATION_PROPERTIES }} > ./application.properties
 
         shell: bash
 
@@ -73,23 +66,10 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           envs: GITHUB_SHA,DOCKER_IMG_FULL_NAME
           script: |
-            pwd
-            echo -e \
-            "$DOCKER_IMG_FULL_NAME
-            $GITHUB_SHA" \
-            > env.txt
-
             yes | docker image prune -a
             docker pull $DOCKER_IMG_FULL_NAME:${GITHUB_SHA::7}
-            
-            sudo ./start.sh
-            sudo ./health.sh
-            sudo ./stop.sh
-
-#            chmod +x profile.sh
-
-#            docker stop spring
-#            docker run -d --rm --name spring -e "active=real1" -p 8081:8081 $DOCKER_IMG_FULL_NAME:${GITHUB_SHA::7}
+            docker stop spring
+            docker run -d --rm --name spring -p 8443:8443 $DOCKER_IMG_FULL_NAME:${GITHUB_SHA::7}
 
 
 

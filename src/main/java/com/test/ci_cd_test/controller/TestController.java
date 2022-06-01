@@ -9,8 +9,11 @@ public class TestController {
     @Value("${test.url}")
     private String OPENVIDU_URL;
 
+    @Value("${openvidu.secret}")
+    private String OPENVIDU_Secret;
+
     @GetMapping("/")
     public String test(){
-        return "Hello, Test -- " + OPENVIDU_URL;
+        return "Hello, Test -- " + OPENVIDU_URL +" !! "+ OPENVIDU_Secret;
     }
 }
